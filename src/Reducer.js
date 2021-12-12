@@ -72,6 +72,14 @@ export function Reducer(state, { type, payload }) {
         state.operation === null
       )
         return state;
+        if (
+          state.currentOperand === 0 ||
+          state.prevOperand === 0 ||
+          state.operation === "/"
+        )
+
+        return Reducer(0, { type: ACTIONS.EVALUATE})
+        
       return {
         ...state,
         overwrite: true,

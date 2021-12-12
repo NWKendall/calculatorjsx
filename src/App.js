@@ -4,8 +4,12 @@ import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
 import "./styles.css";
 
+// stretch 1 = default value is 0, ✅
+// stretch 2 = divide by 0,  ✅
+// stretch 3 = keyboard input & tooltip
+// 
 function App() {
-  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
+  const [{ currentOperand="0", previousOperand, operation }, dispatch] = useReducer(
     Reducer,
     {}
   );
@@ -51,7 +55,7 @@ function App() {
       <DigitButton digit="8" dispatch={dispatch} />
       <DigitButton digit="9" dispatch={dispatch} />
       <OperationButton operation="-" dispatch={dispatch} />
-      <OperationButton operation="." dispatch={dispatch} />
+      <DigitButton digit="." dispatch={dispatch} />
       <DigitButton digit="0" dispatch={dispatch} />
       <button
         className="span2"
