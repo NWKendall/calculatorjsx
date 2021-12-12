@@ -10,16 +10,34 @@ function App() {
     {}
   );
 
+  const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
+    maximumFractionDigits: 0,
+  });
+
+  function formatOperand(operand) {
+    if (operand == null) return;
+    const [integer, decimal] = operand.split(".");
+    if (decimal == null) return INTEGER_FORMATTER.format(integer);
+    return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
+  }
+
   return (
     <div className="calculator-grid">
       <div className="output">
         <div className="previous-operand">
-          {previousOperand} {operation}
+          {formatOperand(previousOperand)} {operation}
         </div>
-        <div className="current-operand">{currentOperand}</div>
+        <div className="current-operand">{formatOperand(currentOperand)}</div>
       </div>
-      <button className="span2" onClick={() => dispatch({ type: ACTIONS.CLEAR})}>AC</button>
-      <button>DEL</button>
+      <button
+        className="span2"
+        onClick={() => dispatch({ type: ACTIONS.CLEAR })}
+      >
+        AC
+      </button>
+      <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>
+        DEL
+      </button>
       <OperationButton operation="/" dispatch={dispatch} />
       <DigitButton digit="1" dispatch={dispatch} />
       <DigitButton digit="2" dispatch={dispatch} />
@@ -35,7 +53,12 @@ function App() {
       <OperationButton operation="-" dispatch={dispatch} />
       <OperationButton operation="." dispatch={dispatch} />
       <DigitButton digit="0" dispatch={dispatch} />
-      <button className="span2">=</button>
+      <button
+        className="span2"
+        onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
+      >
+        =
+      </button>
     </div>
   );
 }
