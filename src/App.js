@@ -1,31 +1,12 @@
 import { useReducer } from "react";
+import { Reducer, ACTIONS } from "./Reducer";
 import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
 import "./styles.css";
 
-export const ACTIONS = {
-  ADD_DIGIT: "add-digit",
-  CHOOSE_OPERATION: "choose-operation",
-  CLEAR: "clear",
-  DELETE_DIGIT: "delete-digit",
-  EVALUATION: "evaluation",
-};
-
-function reducer(state, { type, payload }) {
-  switch (type) {
-    case ACTIONS.ADD_DIGIT:
-      return {
-        ...state,
-        // currentOperand: `${currentOperand || ""}${payload.digit}`,
-      };
-    default:
-      console.log("POOOOOP");
-  }
-}
-
 function App() {
   const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
-    reducer,
+    Reducer,
     {}
   );
 
@@ -37,7 +18,7 @@ function App() {
         </div>
         <div className="current-operand">{currentOperand}</div>
       </div>
-      <button className="span2">AC</button>
+      <button className="span2" onClick={() => dispatch({ type: ACTIONS.CLEAR})}>AC</button>
       <button>DEL</button>
       <OperationButton operation="/" dispatch={dispatch} />
       <DigitButton digit="1" dispatch={dispatch} />
