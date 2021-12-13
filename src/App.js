@@ -25,6 +25,9 @@ function App() {
     return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
   }
 
+  
+
+
   return (
     <div className="calculator-grid">
       <div className="output">
